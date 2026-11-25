@@ -2,6 +2,7 @@ package com.caresync.app.data.model
 
 /*
     CareSync user profile
+    @Suppress("unused") since it isn't being used yet
 */
 
 @Suppress("unused")
