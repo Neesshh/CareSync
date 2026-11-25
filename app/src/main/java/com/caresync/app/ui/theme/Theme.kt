@@ -18,9 +18,16 @@ private val DarkColorScheme = darkColorScheme(
 )
 
 private val LightColorScheme = lightColorScheme(
-    primary = Purple40,
-    secondary = PurpleGrey40,
-    tertiary = Pink40
+    background = CoolWhite,
+    primary = CareBlue,
+    secondary = DeepNavy,
+    tertiary = SkyBlue,
+    //Where would I use the accent color??
+
+    //TEXT COLORS
+    onBackground = Ink,
+    onPrimary = Ink,
+
 
     /* Other default colors to override
     background = Color(0xFFFFFBFE),
@@ -31,13 +38,16 @@ private val LightColorScheme = lightColorScheme(
     onBackground = Color(0xFF1C1B1F),
     onSurface = Color(0xFF1C1B1F),
     */
+
 )
+
 
 @Composable
 fun CareSyncTheme(
-    darkTheme: Boolean = isSystemInDarkTheme(),
+    //TODO: replace with isSystemInDarkTheme() when ready for dark mode
+    darkTheme: Boolean = false,
     // Dynamic color is available on Android 12+
-    dynamicColor: Boolean = true,
+    dynamicColor: Boolean = false, //overriding this cause otherwise my colors dont work
     content: @Composable () -> Unit
 ) {
     val colorScheme = when {
