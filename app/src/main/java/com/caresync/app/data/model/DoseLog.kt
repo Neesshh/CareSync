@@ -1,15 +1,19 @@
 package com.caresync.app.data.model
 
+import com.google.firebase.Timestamp
+
 
 @Suppress("unused")
 data class DoseLog(
-    val occurrenceId: String = "",
-    val scheduleId: String = "",
-    val medicationId: String = "",
     val patientId: String = "",
-    val doseAmount: Double = 0.0,
+    val medicationId: String = "",
+    val scheduleId: String = "",
+    val scheduledAt: Timestamp,
+    val status: String = "",
+    val reportedAt: Timestamp,
+    val undoneAt: Timestamp,
+    val doseAmount: Int = 0,
     val doseUnit: String = "",
-    val status: String = "UPCOMING",
-    val scheduledTimeMillis: Long = 0L,
-    val reportedTimeMillis: Long? = null
-)
+    val recordedOffline: Boolean,
+    val missedAlertSent: Boolean
+    )

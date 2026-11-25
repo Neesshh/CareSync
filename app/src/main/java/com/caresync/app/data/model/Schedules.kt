@@ -7,9 +7,10 @@ data class Schedules(
     val scheduleId: String = "",
     val mediationId: String = "",
     val patientId: String = "",
-    val doseAmount: Float,
-    val times: List<String>,
-    val daysOfWeek: List<String>,
+    val doseAmount: Double,
+    val doseUnit: String = "",
+    val times: ArrayList<String>, // using ArrayList for mutability
+    val daysOfWeek: ArrayList<String>, // using ArrayList for mutability
     val effectiveFrom: DateFormat,
     val effectiveUntil: DateFormat
 )
