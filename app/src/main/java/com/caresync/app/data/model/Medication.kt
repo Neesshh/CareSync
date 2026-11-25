@@ -9,11 +9,12 @@ data class Medication(
     val medicationId: String = "",
     val patientId: String = "",
     val name: String = "",
+    val doseAmount: Double = 0.0,
+    val doseUnit: String = "",
+    val type: String = "",
+    val instructions: String = "",
     val quantityRemaining: Int = 0,
     val quantityUnit: String = "",
-    val prescriber: String? = null,
-    val discardAfter: DateFormat,
-    val pillDescription: String? = null,
     val status: String = "active",
-    val discontinueAt: Timestamp? = null
+    val createdAtMillis : Long = 0L
 )
