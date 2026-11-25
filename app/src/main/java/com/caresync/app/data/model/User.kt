@@ -4,6 +4,7 @@ package com.caresync.app.data.model
     CareSync user profile
 */
 
+@Suppress("unused")
 data class User(
     val userId: String = "",
     val name: Map<String, String> = mapOf(
