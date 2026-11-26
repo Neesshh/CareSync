@@ -6,10 +6,11 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.util.Log
+import com.caresync.app.MainActivity
 
 /**
- * Schedules and cancels exact local medication alarms using Android AlarmManager (RTC_WAKEUP).
- * Uses setExactAndAllowWhileIdle so reminders still fire when the device is in Doze mode.
+ * Schedules and cancels exact local medication alarms using Android AlarmManager's
+ * setAlarmClock(), which bypasses Doze mode rate-limiting so back-to-back medications fire on time.
  */
 class AlarmScheduler(private val context: Context) {
 
@@ -30,7 +31,7 @@ class AlarmScheduler(private val context: Context) {
     }
 
     /**
-     * Schedules an exact local alarm for the given [item].
+     * Schedules an exact local alarm clock entry for the given [item].
      *
      * @return true if scheduled successfully, false if exact-alarm permission is missing.
      */
@@ -40,7 +41,7 @@ class AlarmScheduler(private val context: Context) {
             return false
         }
 
-        val intent = Intent(context, AlarmReceiver::class.java).apply {
+        val alarmIntent = Intent(context, AlarmReceiver::class.java).apply {
             action = ACTION_MEDICATION_ALARM
             putExtra(AlarmReceiver.EXTRA_SCHEDULE_ID, item.scheduleId)
             putExtra(AlarmReceiver.EXTRA_MEDICATION_NAME, item.medicationName)
@@ -48,20 +49,32 @@ class AlarmScheduler(private val context: Context) {
         }
 
         // scheduleId.hashCode() keeps each medication schedule from overwriting other PendingIntents.
-        val pendingIntent = PendingIntent.getBroadcast(
+        val alarmPendingIntent = PendingIntent.getBroadcast(
             context,
             item.scheduleId.hashCode(),
-            intent,
+            alarmIntent,
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
 
+        // Opens CareSync if the user taps the alarm icon on the lock screen or status bar.
+        val showAppIntent = Intent(context, MainActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
+        }
+        val showAppPendingIntent = PendingIntent.getActivity(
+            context,
+            0,
+            showAppIntent,
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        )
+
+        val alarmClockInfo = AlarmManager.AlarmClockInfo(
+            item.triggerTimeMillis,
+            showAppPendingIntent
+        )
+
         return try {
-            alarmManager.setExactAndAllowWhileIdle(
-                AlarmManager.RTC_WAKEUP,
-                item.triggerTimeMillis,
-                pendingIntent
-            )
-            Log.d(TAG, "Scheduled alarm for ${item.medicationName} at ${item.triggerTimeMillis}")
+            alarmManager.setAlarmClock(alarmClockInfo, alarmPendingIntent)
+            Log.d(TAG, "Scheduled alarm clock for ${item.medicationName} at ${item.triggerTimeMillis}")
             true
         } catch (e: SecurityException) {
             Log.e(TAG, "SecurityException scheduling exact alarm for ${item.medicationName}", e)
