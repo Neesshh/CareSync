@@ -9,6 +9,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
+/**
+ * TEMPORARY: stands in for the real Patient Home / Caregiver Dashboard.
+ * When those screens are ready, replace the "home" line in CareSyncApp() (MainActivity.kt).
+ */
 @Composable
 fun PlaceholderHome(title: String, onSignOut: () -> Unit) {
     Column(
