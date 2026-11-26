@@ -20,15 +20,17 @@ private val DarkColorScheme = darkColorScheme(
 )
 
 private val LightColorScheme = lightColorScheme(
-    background = CoolWhite,
+    background = backgroundLight,
     primary = CareBlue,
     secondary = DeepNavy,
-    tertiary = SkyBlue,
+    tertiary = tertiaryLight,
     //Where would I use the accent color??
 
     //TEXT COLORS
-    onBackground = Ink,
-    onPrimary = Ink,
+    onBackground = onBackgroundLight,
+    onPrimary = onPrimaryLight,
+    onSecondary = onSecondaryLight,
+    onTertiary = onTertiaryLight
 
 
     /* Other default colors to override
