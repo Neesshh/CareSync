@@ -5,15 +5,16 @@ import com.google.firebase.Timestamp
 
 @Suppress("unused")
 data class DoseLog(
+    val logId: String = "",
     val patientId: String = "",
     val medicationId: String = "",
     val scheduleId: String = "",
-    val scheduledAt: Timestamp,
-    val status: String = "",
-    val reportedAt: Timestamp,
-    val undoneAt: Timestamp,
-    val doseAmount: Int = 0,
+    val scheduledAt: Timestamp? = null,
+    val status: String = "scheduled",
+    val reportedAt: Timestamp? = null,
+    val undoneAt: Timestamp? = null,
+    val doseAmount: Double = 0.0,
     val doseUnit: String = "",
-    val recordedOffline: Boolean,
-    val missedAlertSent: Boolean
+    val recordedOffline: Boolean = false,
+    val missedAlertSent: Boolean = false
     )

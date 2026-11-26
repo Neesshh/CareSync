@@ -15,5 +15,5 @@ data class User(
     val email: String = "",
     val phone: String? = null,
     val timeZone: String = "",
-    val createdAt: Timestamp = Timestamp.now() // unsure what datatype to default this to
+    val createdAt: Timestamp? = null
 )
