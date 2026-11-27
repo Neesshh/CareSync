@@ -12,6 +12,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.caresync.app.services.AlarmItem
 import com.caresync.app.services.AlarmScheduler
+
+/**
+ * TEMPORARY: stands in for the real Patient Home / Caregiver Dashboard.
+ * When those screens are ready, replace the "home" line in CareSyncApp() (MainActivity.kt).
+ */
 @Composable
 fun PlaceholderHome(title: String, onSignOut: () -> Unit) {
     val context = LocalContext.current

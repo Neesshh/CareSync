@@ -14,6 +14,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.caresync.app.data.AuthRepository
 
+/**
+ * Login screen: email + password.
+ * The role isn't known at login. CareSyncApp() reads it from Firestore after.
+ *
+ * @param onLoggedIn called after a successful login
+ * @param onGoToSignUp called when the user taps "New here? Create an account"
+ */
 @Composable
 fun LoginScreen(
     onLoggedIn: () -> Unit,
@@ -51,6 +58,7 @@ fun LoginScreen(
 
         Button(
             onClick = {
+                // Quick check before calling Firebase
                 if (email.isBlank() || password.isBlank()) {
                     error = "Please enter your email and password."
                 } else {
