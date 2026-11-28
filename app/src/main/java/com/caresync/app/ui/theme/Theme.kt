@@ -1,6 +1,5 @@
 package com.caresync.app.ui.theme
 
-import android.app.Activity
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
@@ -54,7 +53,7 @@ data class ExtendedColorScheme(
     val skyBlue: ColorFamily,
 )
 
-private val lightScheme = lightColorScheme(
+private val generatedLightScheme = lightColorScheme(
     primary = primaryLight,
     onPrimary = onPrimaryLight,
     primaryContainer = primaryContainerLight,
@@ -92,7 +91,7 @@ private val lightScheme = lightColorScheme(
     surfaceContainerHighest = surfaceContainerHighestLight,
 )
 
-private val darkScheme = darkColorScheme(
+private val generatedDarkScheme = darkColorScheme(
     primary = primaryDark,
     onPrimary = onPrimaryDark,
     primaryContainer = primaryContainerDark,
@@ -505,8 +504,8 @@ fun GeneratedAppTheme(
             if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
         }
 
-        darkTheme -> darkScheme
-        else -> lightScheme
+        darkTheme -> generatedDarkScheme
+        else -> generatedLightScheme
     }
 
     MaterialTheme(
@@ -521,7 +520,7 @@ fun GeneratedAppTheme(
 @Composable
 fun CareSyncTheme(
     //TODO: replace with isSystemInDarkTheme() when ready for dark mode
-    darkTheme: Boolean = false,
+    darkTheme: Boolean = isSystemInDarkTheme(),
     // Dynamic color is available on Android 12+
     dynamicColor: Boolean = false, //overriding this cause otherwise my colors dont work
     content: @Composable () -> Unit
